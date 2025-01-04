@@ -1,6 +1,6 @@
 import os
 from utils.downloader import download_youtube_video, get_youtube_transcript
-from utils.audio_transcriber import extract_audio_ffmpeg  # Updated function name
+from utils.audio_transcriber import extract_audio_ffmpeg, transcribe_audio_from_file
 from utils.content_analysis import analyze_and_summarize
 
 def process_video_or_link(input_source, save_path="static/uploaded_videos"):
@@ -20,11 +20,13 @@ def process_video_or_link(input_source, save_path="static/uploaded_videos"):
         if not transcript or not transcript.strip():
             print("No transcript available from YouTube. Downloading video for audio transcription...")
             video_path = download_youtube_video(input_source, save_path)
-            transcript = extract_audio_ffmpeg(video_path)
+            audio_path = extract_audio_ffmpeg(video_path)
+            transcript = transcribe_audio_from_file(audio_path)
     else:
         # Handle uploaded video file
         video_path = input_source
-        transcript = extract_audio_ffmpeg(video_path)
+        audio_path = extract_audio_ffmpeg(video_path)
+        transcript = transcribe_audio_from_file(audio_path)
 
     if not transcript or not transcript.strip():
         raise ValueError("Transcript is empty. Unable to process.")
