@@ -1,0 +1,6 @@
+pytube
+youtube-transcript-api
+moviepy
+openai-whisper
+transformers
+streamlit
