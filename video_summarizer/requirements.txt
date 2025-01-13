@@ -1,0 +1,13 @@
+torch
+torchvision
+torchaudio
+openai-whisper
+numpy
+opencv-python
+faiss-cpu
+transformers
+librosa
+tqdm
+moviepy
+langchain
+safetensors
