@@ -6,12 +6,9 @@ import faiss
 import torch
 '''
 def vectorize_transcript(transcript_path, output_file):
-
-
     with open(transcript_path, "r") as f:
         sentences = f.readlines()
 '''
-
 
 # In the vectorize_transcript function
 def vectorize_transcript(transcript_path, transcript_vector_path):

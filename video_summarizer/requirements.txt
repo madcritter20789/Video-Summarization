@@ -11,3 +11,4 @@ tqdm
 moviepy
 langchain
 safetensors
+transformers
