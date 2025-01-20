@@ -12,3 +12,5 @@ moviepy
 langchain
 safetensors
 transformers
+safetensors
+sentence-transformers

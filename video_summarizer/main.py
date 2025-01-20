@@ -40,7 +40,7 @@ from src.extract_audio import extract_audio
 from src.transcribe_audio import transcribe_audio
 from src.vectorize_video import vectorize_frames
 from src.vectorize_transcript import vectorize_transcript
-from src.summarize import summarize, generate_text_summary, combine_insights
+from src.summarize import generate_detailed_summary
 import os
 
 
@@ -71,17 +71,23 @@ def main(video_path):
     print("Step 5: Vectorizing transcript...")
     vectorize_transcript(transcript_path, transcript_vector_path)
 
-    print("Step 6: Summarizing video...")
-    summary = summarize(video_vector_path, transcript_vector_path)
-    print("Summary:", summary)
+    print("Step 6: Generating detailed summary...")
+    detailed_summary = generate_detailed_summary(transcript_path)
+    print("Detailed Summary:\n", detailed_summary)
 
-    print("Step 6: Generating textual summary...")
+'''    print("Step 6: Summarizing video...")
+    video_summary = "key visual moments"  # Replace with actual video summary logic if available
     text_summary = generate_text_summary(transcript_path)
+
     print("Textual Summary:", text_summary)
 
     print("Step 7: Combining video and transcript insights...")
-    combined_summary = combine_insights("key visual moments", text_summary)  # Replace "key visual moments" with actual video summary if needed.
+    combined_summary = combine_insights(video_summary, text_summary)
     print("Final Summary:", combined_summary)
+    # Replace "key visual moments" with actual video summary if needed.'''
+
+
+
 # Replace 'sample.mp4' with the name of your video file
 main('data/video/sample.mp4')
 
