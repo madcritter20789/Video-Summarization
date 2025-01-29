@@ -1,18 +1,25 @@
-'''import os
 from src.extract_frames import extract_frames
 from src.extract_audio import extract_audio
 from src.transcribe_audio import transcribe_audio
 from src.vectorize_video import vectorize_frames
 from src.vectorize_transcript import vectorize_transcript
-from src.summarize import summarize
+from src.summarize import generate_detailed_summary
+from src.combine_embeddings import combine_embeddings
+from src.train_model import train_model, fine_tune_transformer
+import os
 
 def main(video_path):
+    if not os.path.exists(video_path):
+        raise FileNotFoundError(f"Video file not found at: {video_path}")
+
     base_name = os.path.splitext(os.path.basename(video_path))[0]
     frame_folder = f"data/frames/{base_name}/"
     audio_path = f"data/audio/{base_name}.mp3"
     transcript_path = f"data/transcripts/{base_name}.txt"
     video_vector_path = f"embeddings/video_vectors/{base_name}.index"
     transcript_vector_path = f"embeddings/transcript_vectors/{base_name}.index"
+    combined_vector_path = f"embeddings/combined_vectors/{base_name}.index"
+    summary_path = f"results/summaries/{base_name}_summary.txt"
 
     # Step 1: Extract frames
     extract_frames(video_path, frame_folder)
@@ -29,68 +36,26 @@ def main(video_path):
     # Step 5: Vectorize transcript
     vectorize_transcript(transcript_path, transcript_vector_path)
 
-    # Step 6: Summarize
-    summary = summarize(video_vector_path, transcript_vector_path)
-    print("Summary:", summary)
+    # Step 6: Combine embeddings
+    combine_embeddings(video_vector_path, transcript_vector_path, combined_vector_path)
 
-# Run the process
-# main('data/video/sample.mp4')'''
-from src.extract_frames import extract_frames
-from src.extract_audio import extract_audio
-from src.transcribe_audio import transcribe_audio
-from src.vectorize_video import vectorize_frames
-from src.vectorize_transcript import vectorize_transcript
-from src.summarize import generate_detailed_summary
-import os
-
-
-def main(video_path):
-
-    if not os.path.exists(video_path):
-        raise FileNotFoundError(f"Video file not found at: {video_path}")
-
-    base_name = os.path.splitext(os.path.basename(video_path))[0]
-    frame_folder = f"data/frames/{base_name}/"
-    audio_path = f"data/audio/{base_name}.mp3"
-    transcript_path = f"data/transcripts/{base_name}.txt"
-    video_vector_path = f"embeddings/video_vectors/{base_name}.index"
-    transcript_vector_path = f"embeddings/transcript_vectors/{base_name}.index"
-
-    print("Step 1: Extracting frames...")
-    extract_frames(video_path, frame_folder)
-
-    print("Step 2: Extracting audio...")
-    extract_audio(video_path, audio_path)
-
-    print("Step 3: Transcribing audio...")
-    transcribe_audio(audio_path, transcript_path)
-
-    print("Step 4: Vectorizing video frames...")
-    vectorize_frames(frame_folder, video_vector_path)
-
-    print("Step 5: Vectorizing transcript...")
-    vectorize_transcript(transcript_path, transcript_vector_path)
-
-    print("Step 6: Generating detailed summary...")
+    # Step 7: Generate detailed summary
     detailed_summary = generate_detailed_summary(transcript_path)
-    print("Detailed Summary:\n", detailed_summary)
 
-'''    print("Step 6: Summarizing video...")
-    video_summary = "key visual moments"  # Replace with actual video summary logic if available
-    text_summary = generate_text_summary(transcript_path)
+    # Save the summary
+    os.makedirs(os.path.dirname(summary_path), exist_ok=True)
+    with open(summary_path, "w", encoding="utf-8") as f:
+        f.write(detailed_summary)
+    print(f"Summary saved to {summary_path}")
 
-    print("Textual Summary:", text_summary)
+    # Optional: Train models if needed
+    lstm_model_path = "models/lstm_model.pth"
+    transformer_model_path = "models/transformer_model"
+    summaries_path = "results/summaries/ground_truth.json"
 
-    print("Step 7: Combining video and transcript insights...")
-    combined_summary = combine_insights(video_summary, text_summary)
-    print("Final Summary:", combined_summary)
-    # Replace "key visual moments" with actual video summary if needed.'''
+    train_model(combined_vector_path, summaries_path, lstm_model_path, transformer_model_path)
 
-
-
-# Replace 'sample.mp4' with the name of your video file
-main('data/video/sample.mp4')
-
-
-
-
+# Example usage
+if __name__ == "__main__":
+    video_file = "data/video/sample.mp4"
+    main(video_file)

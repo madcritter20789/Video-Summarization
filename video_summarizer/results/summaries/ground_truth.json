@@ -1,0 +1,10 @@
+[
+    {
+        "input": "The video is about a tutorial on video summarization.",
+        "output": "A tutorial on video summarization."
+    },
+    {
+        "input": "The video explains how to preprocess video frames.",
+        "output": "Preprocessing video frames explained."
+    }
+]
