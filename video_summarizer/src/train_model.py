@@ -40,17 +40,39 @@ class LSTMSummarizer(nn.Module):
 # ------------------------------
 # Training LSTM Model
 # ------------------------------
+import json
+import numpy as np
+import torch
+from sentence_transformers import SentenceTransformer
+
 def train_lstm_model(combined_vector_path, summaries_path, model_save_path):
     # Load combined embeddings
     index = faiss.read_index(combined_vector_path)
     embeddings = np.array([index.reconstruct(i) for i in range(index.ntotal)])
 
-    # Load ground-truth summaries
-    summaries = np.load(summaries_path)  # Assuming summaries are stored as a NumPy array
+    # Load ground-truth summaries (JSON format)
+    with open(summaries_path, "r", encoding="utf-8") as f:
+        summaries_data = json.load(f)
+
+    # Extract only the "output" text from summaries
+    summary_texts = [item["output"] for item in summaries_data]
+
+    # Convert text summaries into numerical embeddings
+    model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    summary_embeddings = model.encode(summary_texts)  # Convert text to vectors
 
     # Convert to PyTorch tensors
     X = torch.tensor(embeddings, dtype=torch.float32)
-    y = torch.tensor(summaries, dtype=torch.float32)
+    y = torch.tensor(summary_embeddings, dtype=torch.float32)
+
+    # Print shapes for debugging
+    print(f"Input Shape (X): {X.shape}, Output Shape (y): {y.shape}")
+
+    # Ensure dimensions match
+    assert X.shape[0] == y.shape[0], "Mismatch: X and y must have the same number of samples"
+
+    # (Continue with your DataLoader, Model training, etc.)
+
 
     # Dataset and DataLoader
     dataset = EmbeddingDataset(X, y)
