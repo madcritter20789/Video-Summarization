@@ -1,0 +1,33 @@
+**General**:
+1. Asaprite forces you to draw every single pixel.
+2. And believe it or not, that's not the go-to technique used by top tier pixel artists.
+3. This is one of those well-capped secrets in the word of pixel art.
+4. We can delve deeper into it another time.
+5. When it comes to 2D art, it's hard to beat the versatility of Photoshop.
+6. Sure, Asaprite is very easy to use and the alternative might take a bit more time to master, but remember what we said.
+7. Slow down to go faster.
+8. Photopia is a remarkable alternative to Photoshop and I can't emphasize this enough.
+9. Crita might be a bit lower in heavier in the system when you're tinkering with filters, politicization, blending, if we compare it to Photoshop or photopia.
+10. Crita is 20% more expensive than photopia, which means that you can get it for zero dollars as well.
+11. Crita can also be used for pixel art, there's a lot you can do with filters and politicization.
+12. Google docs, Google sheets and Google slide have no aesthetic appeal, actually they are ugly.
+13. The third code of my game gen winning game.
+14. I've decided to make the construct project available to you.
+15. You will get behind the scenes look on how the game was set up.
+16. I'm creating a million list for the folks who are interested in game development and want to follow my journey.
+17. It has been a while since I deep my toes into 3d game development.
+18. I've made some 3d assets of the game you are seeing on the screen right now.
+19. This is a game from 2008 and it was supposed to be a VR game before Oculus Rift was a thing.
+20. I wouldn't advise indie or solo devs to chase after high fidelity graphics.
+21. Instead opting for a distinctive stylized 3d style could be your best bet.
+22. For audio, I don't have much to say.
+23. Construct 3 takes all the boxes for a 2D game development.
+24. It boasts some basic 3d features, and most importantly, it makes me very productive.
+25. Type.
+26. Script is a programming language I really like.
+27. Plus, I use it in my daily work.
+28. VS Code is much lighter than its custom visual studio, and it has many extensions that you can use to customize the editor and improve your workload.
+29. Construct 3 has this feature that exports all the type definitions and the TS config of your project in such a way to use it in VS Code..
+
+**Tools**:
+1. While blockbench may be my modeling tool of choice, I'm doubtfully have to use Blender alongside it.

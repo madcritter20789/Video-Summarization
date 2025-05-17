@@ -1,0 +1,18 @@
+**General**:
+1. Ludum Dary is a huge game development competition where you get 48 hours to create a game from scratch using only odd and code you make yourself.
+2. Gravity and Quaternion were used to create the world.
+3. I then created a first shader using a tutorial by Ellen Tukone and tweaked it to be used for grass.
+4. I generated a grass texture in Photoshop, played around with the lighting a bit and added a gradient background.
+5. So I decided to embrace it and add a single road that wraps around it" "The Kai's actually also inspired by his.
+6. ng, mainly the motion player helped emphasize the action" "Busker Core" is a game about avoiding people you know on the street.
+7. I created 5 different soundtracks.
+8. I lost 2 of them because I accidentally hit the escape key.
+9. The other 2 tracks just didn't fit the vibe of the game.
+10. Thanks to all the awesome Patreon supporters who donated it in March.
+11. And especially thanks to Derek Hemskirk, Face No Marifying, James Kellhound and Jason De Tito.
+12. If you want to support the channel and become a Patreon yourself you can do so at patreon.com slash breakeys..
+
+**Future Plans**:
+1. The theme was Small World and I decided to stick with the theme of using a small planet as the game world.
+2. The player controlling a red car would then drive around the planet trying to avoid meteors.
+3. "I really suck at modeling but I think from a distance it ended up looking just fine" "My planet really reminded me of King Kai's.

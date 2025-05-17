@@ -1,4 +1,4 @@
-'''
+
 import os
 from src.extract_frames import extract_frames
 from src.extract_audio import extract_audio
@@ -158,3 +158,4 @@ def process_video(video_path):
     print(f"Summary saved to {summary_path}")
 
     return summary_path  # Return the summary file path
+'''
