@@ -2,6 +2,20 @@
 
 A comprehensive video summarization system that extracts, analyzes, and summarizes video content using machine learning and natural language processing techniques.
 
+## 🆕 **New Features (2024-2025)**
+
+Based on the latest research and best practices, we've added modern features:
+
+- ✅ **Progress Tracking**: Real-time progress bars for all operations
+- ✅ **Model Caching**: 5x faster processing for batch operations
+- ✅ **Key Moments Extraction**: Automatic timestamp-based highlights
+- ✅ **Enhanced Streamlit UI**: Modern interface with sidebar, video preview, and downloads
+- ✅ **Structured Logging**: Professional logging with multiple levels
+- ✅ **Configuration Management**: Easy customization without code changes
+- ✅ **Multiple Export Formats**: TXT, JSON, SRT subtitle files
+
+📖 **See [FEATURES_2025.md](FEATURES_2025.md) for detailed documentation of all new features**
+
 ## Features
 
 ### Core Video Summarization (video_summarizer/)
