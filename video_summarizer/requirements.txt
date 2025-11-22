@@ -11,12 +11,8 @@ tqdm
 moviepy
 langchain
 safetensors
-transformers
-safetensors
 sentence-transformers
-torch
-transformers
-faiss
-numpy
-whisper
+rouge-score
+Pillow
+matplotlib
 

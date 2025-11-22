@@ -1,179 +1,3 @@
-"""
-
-import json
-from rouge_score import rouge_scorer
-
-# Paths to files
-GROUND_TRUTH_PATH = "results/summaries/ground_truth.json"
-GENERATED_SUMMARY_PATH = "results/summaries/sample_summary.txt"
-
-
-def load_ground_truth():
-    //Loads ground truth summaries from the JSON file.
-    with open(GROUND_TRUTH_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return [item["output"] for item in data]  # Extract only the summary texts
-
-
-def load_generated_summary():
-    //Loads the generated summary from the text file.
-    with open(GENERATED_SUMMARY_PATH, "r", encoding="utf-8") as f:
-        summary = f.read().strip()
-    return summary.split("\n")  # Split into individual summary points
-
-
-def evaluate_summaries(ground_truths, generated_summaries):
-    //Calculates ROUGE Precision, Recall, and F1-score."
-    scorer = rouge_scorer.RougeScorer(["rouge1", "rouge2", "rougeL"], use_stemmer=True)
-
-    rouge1_scores, rouge2_scores, rougeL_scores = [], [], []
-
-    for gt, gen in zip(ground_truths, generated_summaries):
-        scores = scorer.score(gt, gen)
-
-        rouge1_scores.append(scores["rouge1"])
-        rouge2_scores.append(scores["rouge2"])
-        rougeL_scores.append(scores["rougeL"])
-
-    def avg_score(scores):
-        //Computes the average precision, recall, and F1-score.
-        return {
-            "Precision": sum([s.precision for s in scores]) / len(scores),
-            "Recall": sum([s.recall for s in scores]) / len(scores),
-            "F1-score": sum([s.fmeasure for s in scores]) / len(scores),
-        }
-
-    return {
-        "ROUGE-1": avg_score(rouge1_scores),
-        "ROUGE-2": avg_score(rouge2_scores),
-        "ROUGE-L": avg_score(rougeL_scores),
-    }
-
-
-if __name__ == "__main__":
-    # Load data
-    ground_truth_summaries = load_ground_truth()
-    generated_summaries = load_generated_summary()
-
-    # Ensure equal lengths by trimming extra data
-    min_len = min(len(ground_truth_summaries), len(generated_summaries))
-    ground_truth_summaries = ground_truth_summaries[:min_len]
-    generated_summaries = generated_summaries[:min_len]
-
-    # Evaluate
-    results = evaluate_summaries(ground_truth_summaries, generated_summaries)
-
-    # Print results
-    print("\n🔹 **Summary Evaluation Metrics:**")
-    for metric, values in results.items():
-        print(f"\n{metric}:")
-        print(f"   Precision: {values['Precision']:.4f}")
-        print(f"   Recall: {values['Recall']:.4f}")
-        print(f"   F1-score: {values['F1-score']:.4f}")
-
-"""
-
-
-"""
-
-import json
-import matplotlib.pyplot as plt
-from rouge_score import rouge_scorer
-
-# Paths to files
-GROUND_TRUTH_PATH = "results/summaries/ground_truth.json"
-GENERATED_SUMMARY_PATH = "results/summaries/sample_summary.txt"
-
-def load_ground_truth():
-    #Loads ground truth summaries from the JSON file.
-    with open(GROUND_TRUTH_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return [item["output"] for item in data]  # Extract only the summary texts
-
-def load_generated_summary():
-    #Loads the generated summary from the text file.
-    with open(GENERATED_SUMMARY_PATH, "r", encoding="utf-8") as f:
-        summary = f.read().strip()
-    return summary.split("\n")  # Split into individual summary points
-
-def evaluate_summaries(ground_truths, generated_summaries):
-    #Calculates ROUGE Precision, Recall, and F1-score.
-    scorer = rouge_scorer.RougeScorer(["rouge1", "rouge2", "rougeL"], use_stemmer=True)
-
-    rouge1_scores, rouge2_scores, rougeL_scores = [], [], []
-
-    for gt, gen in zip(ground_truths, generated_summaries):
-        scores = scorer.score(gt, gen)
-
-        rouge1_scores.append(scores["rouge1"])
-        rouge2_scores.append(scores["rouge2"])
-        rougeL_scores.append(scores["rougeL"])
-
-    def avg_score(scores):
-         # Computes the average precision, recall, and F1-score.
-        return {
-            "Precision": sum(s.precision for s in scores) / len(scores),
-            "Recall": sum(s.recall for s in scores) / len(scores),
-            "F1-score": sum(s.fmeasure for s in scores) / len(scores),
-        }
-
-    return {
-        "ROUGE-1": avg_score(rouge1_scores),
-        "ROUGE-2": avg_score(rouge2_scores),
-        "ROUGE-L": avg_score(rougeL_scores),
-    }
-
-def plot_rouge_scores(results):
-     # Plots ROUGE scores as a bar chart.
-    metrics = ["ROUGE-1", "ROUGE-2", "ROUGE-L"]
-    categories = ["Precision", "Recall", "F1-score"]
-
-    # Extracting values for plotting
-    scores = {metric: [results[metric][cat] for cat in categories] for metric in metrics}
-
-    # Plotting
-    fig, ax = plt.subplots(figsize=(8, 5))
-    bar_width = 0.2
-    x = range(len(categories))
-
-    for i, metric in enumerate(metrics):
-        ax.bar([p + bar_width * i for p in x], scores[metric], bar_width, label=metric)
-
-    ax.set_xticks([p + bar_width for p in x])
-    ax.set_xticklabels(categories)
-    ax.set_ylabel("Score")
-    ax.set_ylim(0, 1)  # ROUGE scores are between 0 and 1
-    ax.set_title("ROUGE Score Evaluation")
-    ax.legend()
-
-    plt.show()
-
-if __name__ == "__main__":
-    # Load data
-    ground_truth_summaries = load_ground_truth()
-    generated_summaries = load_generated_summary()
-
-    # Ensure equal lengths by trimming extra data
-    min_len = min(len(ground_truth_summaries), len(generated_summaries))
-    ground_truth_summaries = ground_truth_summaries[:min_len]
-    generated_summaries = generated_summaries[:min_len]
-
-    # Evaluate
-    results = evaluate_summaries(ground_truth_summaries, generated_summaries)
-
-    # Print results
-    print("\n🔹 **Summary Evaluation Metrics:**")
-    for metric, values in results.items():
-        print(f"\n{metric}:")
-        print(f"   Precision: {values['Precision']:.4f}")
-        print(f"   Recall: {values['Recall']:.4f}")
-        print(f"   F1-score: {values['F1-score']:.4f}")
-
-    # Plot results
-    plot_rouge_scores(results)
-    
-    """
-
 import json
 import os
 import matplotlib.pyplot as plt
@@ -194,6 +18,11 @@ def load_ground_truth():
 def load_generated_summaries():
     """Loads all generated summaries from the folder."""
     summaries = {}
+
+    if not os.path.exists(GENERATED_SUMMARY_FOLDER):
+        os.makedirs(GENERATED_SUMMARY_FOLDER, exist_ok=True)
+        print(f"Created directory: {GENERATED_SUMMARY_FOLDER}")
+        return summaries
 
     for filename in os.listdir(GENERATED_SUMMARY_FOLDER):
         if filename.endswith(".txt"):  # Process only text files
@@ -223,6 +52,8 @@ def evaluate_summaries(ground_truths, generated_summaries):
 
         def avg_score(scores):
             """Computes the average precision, recall, and F1-score."""
+            if len(scores) == 0:
+                return {"Precision": 0.0, "Recall": 0.0, "F1-score": 0.0}
             return {
                 "Precision": sum(s.precision for s in scores) / len(scores),
                 "Recall": sum(s.recall for s in scores) / len(scores),
@@ -241,6 +72,9 @@ def evaluate_summaries(ground_truths, generated_summaries):
 
 def compute_average_results(results):
     """Computes the average ROUGE scores across all files."""
+    if not results:
+        return {"ROUGE-1": {}, "ROUGE-2": {}, "ROUGE-L": {}}
+
     avg_results = {"ROUGE-1": {}, "ROUGE-2": {}, "ROUGE-L": {}}
     categories = ["Precision", "Recall", "F1-score"]
 
@@ -272,6 +106,8 @@ def plot_rouge_scores(results, title="ROUGE Score Evaluation"):
     ax.set_title(title)
     ax.legend()
 
+    plt.savefig("results/summaries/rouge_scores.png")
+    print("Plot saved to results/summaries/rouge_scores.png")
     plt.show()
 
 
@@ -279,6 +115,11 @@ if __name__ == "__main__":
     # Load data
     ground_truth_summaries = load_ground_truth()
     generated_summaries = load_generated_summaries()
+
+    if not generated_summaries:
+        print("No generated summaries found in", GENERATED_SUMMARY_FOLDER)
+        print("Please generate summaries first before running evaluation.")
+        exit(1)
 
     # Evaluate summaries
     results = evaluate_summaries(ground_truth_summaries, generated_summaries)
@@ -307,4 +148,3 @@ if __name__ == "__main__":
 
     # Plot average results
     plot_rouge_scores(avg_results, title="Average ROUGE Score Across All Files")
-

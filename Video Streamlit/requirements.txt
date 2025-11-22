@@ -4,3 +4,6 @@ moviepy
 openai-whisper
 transformers
 streamlit
+ffmpeg-python
+SpeechRecognition
+pydub
